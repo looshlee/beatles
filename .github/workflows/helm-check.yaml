@@ -1,0 +1,80 @@
+name: Smoke test
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+
+jobs:
+  preflight-clusterrole:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check pre-flight clusterrole
+        run: |
+          cd install/kubernetes/cilium/charts
+          echo "Checking for differences between preflight and agent clusterrole"
+          diff \
+             -I '^[ ]\{2\}name: cilium.*' \
+             -I '^Keep file in synced with.*' \
+             agent/templates/clusterrole.yaml \
+             preflight/templates/clusterrole.yaml
+
+  quick-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check quick-install.yaml and experimental-install.yaml
+        run: |
+          cd install/kubernetes
+          make all
+          git diff --exit-code
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run helm lint
+        run: |
+          cd install/kubernetes/cilium
+          helm lint --with-subcharts --values values.yaml
+
+      - name: Build docker images
+        run: |
+          make docker-image-no-clean
+          make docker-operator-generic-image
+
+      - name: Prevent K8s from pulling images
+        run: |
+          sed -i 's;pullPolicy: Always;pullPolicy: Never;g' install/kubernetes/cilium/values.yaml
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.0.0-rc.1
+        with:
+          version: v0.8.1
+
+      - name: Load local images into kind cluster
+        run: |
+          kind load docker-image --name chart-testing cilium/cilium:latest
+          kind load docker-image --name chart-testing cilium/operator-generic:latest
+
+      # This test is just to make sure the helm chart can be installed. It will not replace existing integration tests
+      - name: Run chart-testing (install)
+        uses: helm/chart-testing-action@v1.0.0-rc.2
+        with:
+          command: install
+          config: install/kubernetes/chart-testing.yaml
+
+      - name: Install ginkgo
+        run: |
+          cd $HOME
+          go get -u github.com/onsi/ginkgo/ginkgo
+          go get -u github.com/onsi/gomega/...
+
+      - name: Run test suite
+        run: |
+          cd test
+          export PATH=$PATH:$HOME/go/bin
+          ginkgo -v --focus="K8sConformance Portmap Chaining Check one node" -- -cilium.provision=false -test.v --cilium.kubeconfig=${HOME}/.kube/config -cilium.image=cilium/cilium:latest -cilium.operator-image=cilium/operator-generic:latest
