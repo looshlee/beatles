@@ -1,0 +1,49 @@
+language: go
+
+dist: focal
+sudo: required
+
+go: "1.16.3"
+
+jobs:
+  include:
+    - arch: amd64
+    - arch: arm64-graviton2
+      virt: vm
+      group: edge
+    - arch: amd64
+      name: "amd64-race"
+      if: type != pull_request
+      env:
+        - RACE=1
+        - BASE_IMAGE=quay.io/cilium/cilium-runtime:ed80679d06b551d2856ca1cd5733b71e7430adb2@sha256:05da74b6aef0c77a0bfdd646e4b559c803960526acba1e134d5edb674a7bd9fb
+        - LOCKDEBUG=1
+    - arch: arm64-graviton2
+      name: "arm64-graviton2-race"
+      if: type != pull_request
+      env:
+        - RACE=1
+        - BASE_IMAGE=quay.io/cilium/cilium-runtime:ed80679d06b551d2856ca1cd5733b71e7430adb2@sha256:05da74b6aef0c77a0bfdd646e4b559c803960526acba1e134d5edb674a7bd9fb
+        - LOCKDEBUG=1
+      virt: vm
+      group: edge
+
+if: branch = master OR type = pull_request
+
+addons:
+  apt:
+    packages:
+      - kernel-package
+      - gnupg
+      - libelf-dev
+      - libncurses5
+
+before_install: ./.travis/prepare.sh
+
+before_script:
+  - export PATH=/usr/local/clang/bin:$PATH
+
+script: ./.travis/build.sh
+
+notifications:
+  email: false

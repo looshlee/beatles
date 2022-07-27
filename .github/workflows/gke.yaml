@@ -1,0 +1,29 @@
+name: ConformanceGKE (ci-gke)
+
+on:
+  issue_comment:
+    types:
+      - created
+
+  ## FOR TESTING PURPOSES
+  pull_request:
+   types:
+     - "labeled"
+  ##
+  workflow_dispatch:
+
+
+jobs:
+  installation-and-connectivity:
+    runs-on: ubuntu-latest
+    env:
+      TEST: ${{ (github.event.issue.pull_request && (
+        startsWith(github.event.comment.body, 'ci-gke') ||
+        startsWith(github.event.comment.body, 'test-me-please'))) || github.event_name == 'push' || github.event.label.name == 'ci-run/gke' }}
+
+    steps:
+      - name: Set up job variables
+        if: ${{env.TEST}}
+        id: vars
+        run: |
+          echo $TEST
