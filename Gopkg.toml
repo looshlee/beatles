@@ -1,0 +1,533 @@
+# Gopkg.toml example
+#
+# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# for detailed Gopkg.toml documentation.
+#
+# required = ["github.com/user/thing/cmd/thing"]
+# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
+#
+# [[constraint]]
+#   name = "github.com/user/project"
+#   version = "1.0.0"
+#
+# [[constraint]]
+#   name = "github.com/user/project2"
+#   branch = "dev"
+#   source = "github.com/myfork/project2"
+#
+# [[override]]
+#   name = "github.com/x/y"
+#   version = "2.4.0"
+#
+# [prune]
+#   non-go = false
+#   go-tests = true
+#   unused-packages = true
+
+required = [
+            "k8s.io/code-generator/cmd/client-gen",
+            "k8s.io/gengo/examples/defaulter-gen/generators",
+            "k8s.io/gengo/examples/deepcopy-gen/generators"
+            ]
+
+[[constraint]]
+  name = "github.com/asaskevich/govalidator"
+  revision = "fdf19785fd3558d619ef81212f5edf1d6c2a5911"
+
+  # main-usage = "only in integration tests"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/aws/aws-sdk-go-v2"
+  version = "2.0.0-preview.5"
+
+  # main-usage = "pkg/policy/groups"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/c9s/goprocinfo"
+  revision = "0010a05ce49fde7f50669bc7ecda7d41dd6ab824"
+
+  # main-usage = "pkg/health"
+  # on-revision = "no stable releases released"
+
+[[constraint]]
+  name = "github.com/cilium/proxy"
+  revision = "c6d564bb08632a09947bfe224096379df4775ccd"
+
+  # main-usage = "pkg/envoy"
+  # on-revision = "no stable releases released"
+
+[[constraint]]
+  name = "github.com/containerd/containerd"
+  revision = "v1.1.0"
+
+  # main-usage = "pkg/workloads"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/containerd/cri"
+  revision = "v1.0.5"
+
+  # main-usage = "pkg/workloads"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/containerd/typeurl"
+  revision = "461401dc8f19d80baa4b70178935e4501286c00b"
+
+  # main-usage = "pkg/workloads/containerd"
+  # on-revision = "no stable releases released"
+
+[[constraint]]
+  name = "github.com/containernetworking/cni"
+  revision = "v0.7.0-rc2"
+
+  # main-usage = "plugins/cni"
+  # on-revision = "latest stable release"
+
+[[constraint]]
+  name = "github.com/containernetworking/plugins"
+  revision = "v0.7.5"
+
+  # main-usage = "pkg/ipam and plugins/cilium-cni"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/coreos/etcd"
+  revision = "v3.3.10"
+
+  # main-usage = "pkg/kvstore"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/davecgh/go-spew"
+  revision = "v1.1.1"
+
+  # main-usage = "pkg/debug"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/docker/engine-api"
+  revision = "4eca04ae18f4f93f40196a17b9aa6e11262a7269"
+
+  # main-usage = "pkg/workloads"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/docker/libnetwork"
+  revision = "82fb373e3eaa4e9bbb5b5ac148b0a3a71f80fca6"
+
+  # main-usage = "plugins/cilium-docker"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/fatih/color"
+  revision = "533cd7fd8a85905f67a1753afb4deddc85ea174f"
+
+  # main-usage = "pkg/colors"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/golang/protobuf"
+  version = "1.3.1"
+
+  # main-usage = "pkg/envoy and proxylib"
+  # on-revision = "same version specified by github.com/lyft/protoc-gen-validate v0.0.13"
+
+[[constraint]]
+  name = "github.com/google/gopacket"
+  revision = "v1.1.15"
+
+  # main-usage = "pkg/monitor"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/google/gops"
+  revision = "v0.3.5"
+
+  # main-usage = "all main packages"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/go-openapi/errors"
+  revision = "fc3f73a224499b047eda7191e5d22e1e9631e86f"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/go-openapi/loads"
+  revision = "bf98340e04734f11563fd3008e87be4c1d4ffc08"
+
+  # main-usage = "swagger spec"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/go-openapi/runtime"
+  revision = "bf2ff8f7150788b1c7256abb0805ba0410cbbabb"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+# Once we update "github.com/go-openapi/runtime" we can remove this override
+[[override]]
+  name = "github.com/go-openapi/analysis"
+  revision = "d5a75b7d751ca3f11ad5d93cfe97405f2c3f6a47"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/go-openapi/spec"
+  revision = "3a0434164aa36744c7ba29b822d36894a1e5ec96"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+# TODO(mrostecki): Switch to releases when they will include:
+# https://github.com/go-openapi/strfmt/commit/dd2bd34dedb77725bec3b8e941ad06daf32a935a
+[[constraint]]
+  name = "github.com/go-openapi/strfmt"
+  revision = "dd2bd34dedb77725bec3b8e941ad06daf32a935a"
+
+  # main-usage = "swagger and pkg/controllers"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/go-openapi/swag"
+  revision = "96d7b9ebd181a1735a1c9ac87914f2b32fbf56c9"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/go-openapi/validate"
+  revision = "b11dbf889b64cf815a7e2667412df313f4a3f17b"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/gorilla/mux"
+  revision = "26a6070f849969ba72b72256e9f14cf519751690"
+
+  # main-usage = "plugins/cilium-docker"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/hashicorp/consul"
+  revision = "v1.4.0"
+
+  # main-usage = "pkg/kvstore"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/hashicorp/go-immutable-radix"
+  revision = "v1.0.0"
+
+  # main-usage = "cilium/cmd"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/hashicorp/go-version"
+  revision = "4fe82ae3040f80a03d04d2cccb5606a626b8e1ee"
+
+  # main-usage = "multiple packages"
+  # on-revision = "this revision is the parent revision of the commit removes"
+  #               "comparision between constrains that are not pre-releases and
+  #               "versions that are pre-releases"
+
+[[constraint]]
+  name = "github.com/jessevdk/go-flags"
+  revision = "4e64e4a4e2552194cf594243e23aa9baf3b4297e"
+
+  # main-usage = "all CLI packages"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/kevinburke/ssh_config"
+  revision = "db49ba357de1f26c56dac48a5de39c65785bf24a"
+
+  # main-usage = "only in integration tests"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/kr/pretty"
+  revision = "cfb55aafdaf3ec08f0db22699ab822c50091b1c4"
+
+  # main-usage = "pkg/comparator"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/mattn/go-shellwords"
+  revision = "9858af9cca4c73576f0b8c6609a396eb0878023c"
+
+  # main-usage = "pkg/datapath/iptables"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/miekg/dns"
+  revision = "v1.1.0"
+
+  # main-usage = "pkg/fqdn"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/onsi/ginkgo"
+  revision = "ba8e856bb854d6771a72ddf6497a42dad3a0c971"
+
+  # main-usage = "only in integration tests"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/onsi/gomega"
+  revision = "283ed655c6b8238afecd5bea6434bc9b03129f2f"
+
+  # main-usage = "only in integration tests"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/op/go-logging"
+  revision = "0882c9abce533ab4afbab5677fcef7434dd36d5a"
+
+  # main-usage = "pkg/policy"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/optiopay/kafka"
+  source = "https://github.com/cilium/kafka"
+  revision = "01ce283b732b96914f62b1ff1bf5d8b90f7db86c"
+
+  # main-usage = "pkg/kafka and pkg/proxy"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/pborman/uuid"
+  revision = "14801136da1260ea57627a3af55873f59f9ee1ea"
+
+  # main-usage = "pkg/uuid"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/pmezard/go-difflib"
+  revision = "v1.0.0"
+
+  # main-usage = "pkg/comparator"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/prometheus/client_golang"
+  revision = "v0.9.0-pre1"
+
+  # main-usage = "pkg/metrics"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/prometheus/client_model"
+  revision = "5c3871d89910bfb32f5fcab2aa4b9ec68e65a99f"
+
+  # main-usage = "pkg/metrics"
+  # on-revision = "last available commit and there is not stable releases"
+
+[[constraint]]
+  name = "github.com/russross/blackfriday"
+  revision = "6d1ef893fcb01b4f50cb6e57ed7df3e2e627b6b2"
+
+  # main-usage = "cilium/cmd/debuginfo"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/sasha-s/go-deadlock"
+  revision = "d68e2bc52ae3291765881b9056f2c1527f245f1e"
+
+  # main-usage = "pkg/lock"
+  # on-revision = "last available commit and there is not stable releases"
+
+[[constraint]]
+  name = "github.com/servak/go-fastping"
+  revision = "5718d12e20a0705da242a29ded0482dabae84363"
+
+  # main-usage = "pkg/health"
+  # on-revision = "last available commit and there is not stable releases"
+
+[[constraint]]
+  name = "github.com/shirou/gopsutil"
+  revision = "v2.18.10"
+
+  # main-usage = "pkg/loadinfo"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/sirupsen/logrus"
+  revision = "v1.0.3"
+
+  # main-usage = "all over the code"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+  revision = "d2d81d9a96e23f0255397222bb0b4e3165e492dc"
+
+  # main-usage = "mainly CLI packages"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/spf13/pflag"
+  revision = "24fa6976df40757dce6aea913e7b81ade90530e1"
+
+  # main-usage = "mainly CLI packages"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/spf13/viper"
+  revision = "v1.3.1"
+
+  # main-usage = "mainly CLI packages"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/tylerb/graceful"
+  revision = "d37e108c89765a8e307f15b8fb2ecd10575da6bb"
+
+  # main-usage = "api/v1"
+  # on-revision = ""
+
+[[constraint]]
+  name = "github.com/vishvananda/netlink"
+  revision = "99a56c251ae6d00ce3d73cf8ee0b9ecb94fe323b"
+
+  # main-usage = "all over the code"
+  # on-revision = "last available commit and there is no stable release"
+
+[[override]]
+  name = "golang.org/x/crypto"
+  revision = "5ba7f63082460102a45837dbd1827e10f9479ac0"
+
+  # main-usage = "only in integration tests"
+  # on-revision = ""
+
+[[override]]
+  name = "golang.org/x/net"
+  revision = "0744d001aa8470aaa53df28d32e5ceeb8af9bd70"
+
+  # main-usage = "pkg/kvstore/etcd, pkg/workloads, pkg/envoy and api/v1"
+  # on-revision = ""
+
+[[constraint]]
+  name = "golang.org/x/sync"
+  revision = "42b317875d0fa942474b76e1b46a6060d720ae6e"
+
+  # main-usage = "daemon"
+  # on-revision = "last available commit and there is not stable releases"
+
+[[override]]
+  name = "golang.org/x/sys"
+  revision = "62eef0e2fa9b2c385f7b2778e763486da6880d37"
+
+  # main-usage = "daemon, pkg/bpf, pkg/maps/ipcache"
+  # on-revision = "github.com/shirou/gopsutil uses master so we override it with a particullar commit after v2.18.10 was released"
+
+[[constraint]]
+  name = "google.golang.org/genproto"
+  revision = "595979c8a7bf586b2d293fb42246bf91a0b893d9"
+
+  # main-usage = "proxylib"
+  # on-revision = ""
+
+[[constraint]]
+  name = "google.golang.org/grpc"
+  revision = "v1.11.3"
+
+  # main-usage = "pkg/envoy, pkg/workloads and proxylib/npds"
+  # on-revision = ""
+
+[[constraint]]
+  name = "gopkg.in/check.v1"
+  revision = "4f90aeace3a26ad7021961c297b22c42160c7b25"
+
+  # main-usage = "unit tests"
+  # on-revision = ""
+
+# We need to specify fsnotify source to avoid dep panic
+[[constraint]]
+  name = "gopkg.in/fsnotify.v1"
+  revision = "v1.4.7"
+  source = "gopkg.in/fsnotify/fsnotify.v1"
+
+  # main-usage = "pkg/clustermesh"
+  # on-revision = ""
+
+[[constraint]]
+  name = "gopkg.in/natefinch/lumberjack.v2"
+  revision = "v2.1"
+
+  # main-usage = "pkg/envoy and pkg/proxy"
+  # on-revision = ""
+
+[[constraint]]
+  name = "k8s.io/api"
+  revision = "kubernetes-1.14.1"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = ""
+
+[[constraint]]
+  name = "k8s.io/apiextensions-apiserver"
+  revision = "kubernetes-1.14.1"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = ""
+
+[[override]]
+  name = "k8s.io/apiserver"
+  revision = "kubernetes-1.14.1"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = ""
+
+[[constraint]]
+  name = "k8s.io/apimachinery"
+  revision = "kubernetes-1.14.1"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = ""
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  source = "https://github.com/cilium/client-go"
+  revision = "0435e1d065b132cd4915ab080c12c8f762c9df68"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = "TODO @aanm is on 0435e1d065b132cd4915ab080c12c8f762c9df68 as it contains the hotfix for the metrics path"
+
+[[constraint]]
+  name = "k8s.io/code-generator"
+  revision = "kubernetes-1.14.1"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = ""
+
+[[override]]
+  name = "k8s.io/gengo"
+  revision = "51747d6e00da1fc578d5a333a93bb2abcbce7a95"
+
+  # main-usage = "k8s.io/code-generator"
+  # on-revision = "same revision set in the dependency list of k8s.io/code-generator"
+
+[[constraint]]
+  name = "k8s.io/kubernetes"
+  revision = "v1.14.1"
+
+  # main-usage = "pkg/k8s"
+  # on-revision = ""
+
+[prune]
+  non-go = true
+  go-tests = true
+  unused-packages = true
+
+  [[prune.project]]
+    name = "k8s.io/code-generator"
+    unused-packages = false
+    non-go = false
