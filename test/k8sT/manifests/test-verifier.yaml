@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-verifier
+spec:
+  containers:
+  - name: cilium-builder
+    image: quay.io/cilium/cilium-builder:2021-02-15-v1.8@sha256:81d45f48b024e90d038b540935c186e33f2eeccff81d6d56c3ed0c47fe96a928
+    command: ["sleep"]
+    args:
+      - "1000h"
+    securityContext:
+      capabilities:
+        add:
+        - NET_ADMIN
+        - SYS_MODULE
+      privileged: true
+    volumeMounts:
+      - mountPath: /sys/fs/bpf
+        name: bpf-maps
+      - mountPath: /cilium
+        name: cilium-src
+  volumes:
+  - hostPath:
+      path: /sys/fs/bpf
+      type: DirectoryOrCreate
+    name: bpf-maps
+  - hostPath:
+      path: /home/vagrant/go/src/github.com/cilium/cilium
+      type: Directory
+    name: cilium-src
+  # We need the following toleration overwrite because K8sVerifier runs with
+  # Cilium uninstalled, so the network isn't ready.
+  tolerations:
+  - key: "node.kubernetes.io/not-ready"
+    operator: "Exists"
+  - key: "node.kubernetes.io/unreachable"
+    operator: "Exists"
+  hostNetwork: true
+  nodeName: k8s1
