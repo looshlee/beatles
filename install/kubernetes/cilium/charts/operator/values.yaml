@@ -1,0 +1,8 @@
+image: operator
+
+# Service account annotations
+serviceAccount:
+  annotations: {}
+
+# Specifies the resources for the operator container
+resources: {}
