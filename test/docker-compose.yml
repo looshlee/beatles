@@ -1,0 +1,25 @@
+version: "2"
+services:
+  consul:
+    image: "docker.io/library/consul:1.1.0"
+    volumes:
+      - "/tmp/cilium-consul-certs:/cilium-consul/"
+    hostname: "consul"
+    environment:
+      - 'CONSUL_LOCAL_CONFIG={"skip_leave_on_interrupt": true, "disable_update_check": true}'
+    command: "agent -client=0.0.0.0 -server -bootstrap-expect 1 -config-file=/cilium-consul/consul-config.json"
+    privileged: true
+  etcd:
+    image: "quay.io/coreos/etcd:v3.2.17"
+    hostname: "etcd"
+    command: "etcd -name etcd0 -advertise-client-urls http://0.0.0.0:4002 -listen-client-urls http://0.0.0.0:4002 -initial-cluster-token etcd-cluster-1 -initial-cluster-state new"
+    privileged: true
+  base_image:
+    image: "quay.io/cilium/cilium-builder:2021-02-15-v1.9@sha256:88daa4fd4f427bf7fe8fcf3a544e1c2c4407e06a72571121ec8135e2e1f4aa5b"
+    volumes:
+      - "./../:/go/src/github.com/cilium/cilium/"
+    privileged: true
+  precheck:
+    extends:
+      service: base_image
+    command: "bash -c 'cd /go/src/github.com/cilium/cilium/; make ci-precheck || exit 1'"
