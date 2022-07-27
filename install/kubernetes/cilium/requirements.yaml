@@ -1,0 +1,22 @@
+dependencies:
+  - name: agent
+    version: 1.7.90
+    condition: agent.enabled
+  - name: config
+    version: 1.7.90
+    condition: config.enabled
+  - name: hubble-cli
+    version: 1.7.90
+    condition: global.hubble.cli.enabled
+  - name: operator
+    version: 1.7.90
+    condition: operator.enabled
+  - name: managed-etcd
+    version: 1.7.90
+    condition: global.etcd.managed
+  - name: preflight
+    version: 1.7.90
+    condition: preflight.enabled
+  - name: nodeinit
+    version: 1.7.90
+    condition: global.nodeinit.enabled
