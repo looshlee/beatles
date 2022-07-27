@@ -1,0 +1,50 @@
+// Copyright 2017 Authors of Cilium
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Package logfields defines common logging fields which are used across packages
+package logfields
+
+const (
+	// EndpointID is the numeric endpoint identifier
+	EndpointID = "endpointID"
+
+	// ContainerID is the container identifier
+	ContainerID = "containerID"
+
+	// IdentityLabels are the labels relevant for the security identity
+	IdentityLabels = "identityLabels"
+
+	// EndpointLabelSelector is a selector for Endpoints by label
+	EndpointLabelSelector = "EndpointLabelSelector"
+
+	// Object is used when "%+v" printing Go objects for debug or error handling.
+	// It is often paired with logfields.Repr to render the object.
+	Object = "obj"
+
+	// Request is a request object received by us, reported in debug or error.
+	// It is often paired with logfields.Repr to render the object.
+	Request = "req"
+
+	// Identity is the identifier of a security identity
+	Identity = "identity"
+
+	// Route is a L2 or L3 Linux route
+	Route = "route"
+
+	// IPAddr is an IPV4 or IPv6 address
+	IPAddr = "ipAddr"
+
+	// Interface is an interface id/name on the system
+	Interface = "interface"
+)
