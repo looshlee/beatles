@@ -1,0 +1,28 @@
+{
+        "name": "io.cilium",
+	"rules": [{
+		"coverage": ["public"],
+		"allow": ["$world"]
+	},{
+		"coverage": ["all"],
+		"allow": ["$all"]
+	},{
+		"coverage": ["$world"],
+		"allow": ["client"]
+	},{
+		"coverage": ["$host"],
+		"allow": ["$all"]
+	},{
+		"coverage": ["$all"],
+		"allow": ["$host"]
+	}],
+        "children": {
+		"client": { },
+		"server": {
+			"rules": [{
+				"allow": ["../client"]
+			}]
+		}
+
+	}
+}
