@@ -1,0 +1,31 @@
+{
+	"name": "io.cilium",
+	"rules": [{
+		"coverage": ["dev"],
+		"requires": ["dev"]
+	},{
+		"coverage": ["qa"],
+		"requires": ["qa"]
+	},{
+		"coverage": ["prod"],
+		"requires": ["prod"]
+	}],
+        "children": {
+		"grpblue": {
+			"children": {
+				"web": { },
+				"db": {
+					"rules": [{
+						"allow": ["../web"]
+					}]
+				}
+			}
+		},
+		"grpred": {
+			"children": {
+				"db": { }
+			}
+		}
+
+	}
+}
